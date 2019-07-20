@@ -23,7 +23,7 @@ cout<<"\nDangling pointer...."<<endl;
 // ptr is dangling pointer;
 
 
-delete ptr;
+
 return 0;
 
 }
