@@ -5,9 +5,12 @@ using namespace std;
 
 int main()
 {
-	int row,c,q;
+	int row,c,query;
+	// row=no of rows
+	// c=no of columns
+	// query=no of queries
 	cin>>row>>q;
-	cout<<row;
+	
 	
 	vector<  vector<int> > arr(row);
 
