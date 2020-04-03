@@ -27,10 +27,20 @@ public:
 	void PreorderTraversal(Node<T>*);
 	void Postorder();
 	void PostorderTraversal(Node<T>*);
+	
+	/*iterative*/
 	Node<T>* TreeMinimum(Node<T>* root1);
 	Node<T>* TreeMaximum(Node<T>* root1);
+	
+	/*Recursive*/
+	Node<T>* TreeMin(Node<T>* root1);
+	Node<T>* TreeMinExecute(Node<T>* root);
+	Node<T>* TreeMax(Node<T>* root1);
+	Node<T>* TreeMaxExecute(Node<T>* root);
+	
 	Node<T>* SearchNode(T key);
 	Node<T>* Successor(Node<T>* root1);
+	Node<T>* Predecessor(Node<T>* root1);
 	void Transplant(Node<T>*,Node<T>*);
 	void deleteNode(Node<T>*);
 	
@@ -106,34 +116,7 @@ void BinaryTree<T>::InorderTraversal(Node<T> *root)
 	}
 }
 
-/*iterative Inorder Traversal*/
-template<typename T>
-void BinaryTree<T>::InorderIterative(stack<Node<int>*> &S)
-{
-	Node<T>* x=TreeRoot;
-	FILL_STACK(x,S);
-	
-	while(S.isStackEmpty()==false)
-	{
-		Node<T>* element = S.pop();
-		cout<<element->key<<" ";
-		x=element->right;
-		FILL_STACK(x,S);
-	}
-	
-	cout<<endl;
 
-}
-
-template<typename T>
-void BinaryTree<T>::FILL_STACK(Node<T>* &x,stack<Node<int>*> &S)
-{
-	while(x!=0)
-	{
-		S.push(x);
-		x=x->left;
-	}
-}
 
 template<typename T>
 void BinaryTree<T>::Preorder()
@@ -205,6 +188,49 @@ Node<T>* BinaryTree<T>::TreeMaximum(Node<T>* root1=0)
 }
 
 template<typename T>
+Node<T>* BinaryTree<T>::TreeMin(Node<T>* root1=0)
+{
+	Node<T>* root=TreeRoot;
+	if(root1!=0)
+		root=root1;
+	
+	if(root!=0)
+		return TreeMinExecute(root);
+	else 
+		return root;
+}
+
+template<typename T>
+Node<T>* BinaryTree<T>::TreeMinExecute(Node<T>* root)
+{
+	if(root->left==0)
+		return root;
+	else
+		return root->left;
+}
+
+template<typename T>
+Node<T>* BinaryTree<T>::TreeMax(Node<T>* root1=0)
+{
+	Node<T>* root=TreeRoot;
+	if(root1!=0)
+		root=root1;
+	
+	if(root!=0)
+		return TreeMaxExecute(root);
+	else 
+		return root;
+}
+
+template<typename T>
+Node<T>* BinaryTree<T>::TreeMaxExecute(Node<T>* root)
+{
+	if(root->right==0)
+		return root;
+	else
+		return root->right;
+}
+template<typename T>
 Node<T>* BinaryTree<T>::SearchNode(T key)
 {
 	Node<T>* root=TreeRoot;
@@ -235,6 +261,26 @@ Node<T>* BinaryTree<T>::Successor(Node<T>* root1=0)
 	{
 		root = y;
 		y = y->parent; 
+	}
+	return y;
+}
+
+template<typename T>
+Node<T>* BinaryTree<T>::Predecessor(Node<T>* root1=0)
+{
+	Node<T>* root=TreeRoot;
+	if(root!=0)
+		root=root1;
+	
+	if(root->left!=0)
+	{
+		return TreeMax(root->left);
+	}
+	Node<T>* y=root->parent;
+	while(y!=0 and root==y->left)
+	{
+		root=y;
+		y=y->parent;
 	}
 	return y;
 }
@@ -295,6 +341,35 @@ void BinaryTree<T>::deleteNode(Node<T>* z)
 	}
 	
 }
+
+/*iterative Inorder Traversal*/
+template<typename T>
+void BinaryTree<T>::FILL_STACK(Node<T>* &x,stack<Node<int>*> &S)
+{
+	while(x!=0)
+	{
+		S.push(x);
+		x=x->left;
+	}
+}
+template<typename T>
+void BinaryTree<T>::InorderIterative(stack<Node<int>*> &S)
+{
+	Node<T>* x=TreeRoot;
+	FILL_STACK(x,S);
+	
+	while(S.isStackEmpty()==false)
+	{
+		Node<T>* element = S.pop();
+		cout<<element->key<<" ";
+		x=element->right;
+		FILL_STACK(x,S);
+	}
+	
+	cout<<endl;
+
+}
+
 int main()
 {
 
@@ -307,6 +382,8 @@ int main()
 	B.Inorder();
 	B.Preorder();
 	B.Postorder();
+	
+	
 	
 	return 0;
 }
