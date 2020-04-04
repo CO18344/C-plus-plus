@@ -13,7 +13,7 @@ int RodCutting(int *price,int n,int *r)
 	else
 	{
 		
-		for(i=0;i<n;i++)
+		for(i=0;i<n-1;i++)
 		{
 			q=max(q,price[i]+RodCutting(price,n-1-i,r));
 		}
