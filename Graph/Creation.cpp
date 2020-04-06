@@ -50,6 +50,11 @@ public:
 		newNode->id=destinationVertex;
 		newNode->next=this->array[sourceVertex].start;
 		this->array[sourceVertex].start=newNode;
+		
+		newNode = new adjListNode;
+		newNode->id=sourceVertex;
+		newNode->next=this->array[destinationVertex].start;
+		this->array[destinationVertex].start=newNode;
 	}
 	
 	void print()
