@@ -1,3 +1,6 @@
+//constant functions
+//Dont allow to modify object
+//DOnt allow to call non-const functions
 #include<iostream>
 using namespace std;
 
