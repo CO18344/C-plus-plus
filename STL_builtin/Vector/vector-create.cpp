@@ -20,5 +20,10 @@ int main()
 	vector<int> V1 { 2, 4 ,5 ,5 };
 print(V1);
 
+	//initialization via normal array in C++
+	int arr[]={3 , 1 , 23, 21, 11,33,3};
+	vector<int> V2(arr,arr + sizeof(arr)/sizeof(int));	//equivalent to arr,arr + 7
+print(V2);
+
 	return 0;
 }
